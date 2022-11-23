@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection.Emit;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
@@ -15,20 +16,40 @@ public class ReadMaps : MonoBehaviour
     [SerializeField] GameObject Wall;
     [SerializeField] GameObject Box;
     [SerializeField] GameObject Player;
-     GameObject Target;
+    [SerializeField] GameObject Target;
     // GameObject Button;
     [SerializeField] int Scale_tmp = 1;
-
+    int Level;
 
 
 
 
     void Start()
     {
-        int Level = 11;
-        List<string> parsed = ReadData(Level);
+
+
+        for (Level = 0; Level < 10; Level++)
+        {
+
+            
+            LevelMake(Level);
+
+        }
+    }
+
+
+    void LevelMake(int Level_cur)
+     
+    {
+
+        List<string> parsed = ReadData(Level_cur);
+
         CreateLevel(parsed);
     }
+
+
+
+
 
 
     void CreateLevel(List<string> strings)
@@ -38,8 +59,6 @@ public class ReadMaps : MonoBehaviour
 
         // foreach (var str in strings)
 
-        int axisY = 0;
-        int axisX = 0;
 
         for (int i = 5; i < strings.Count - 2; i++)
         {
@@ -49,15 +68,15 @@ public class ReadMaps : MonoBehaviour
             for (int j = 0; j < characters.Length; j++)
 
             {
-                Debug.Log(characters[j]);
-                char ch=characters[j];
-                RespBox(ch,axisX, axisY);
-                axisX++;
-
+                
+                
+                RespBox(characters[j], j, i);
+                
+                
 
 
             }
-            axisY++;
+           
         }
 
 
@@ -67,7 +86,7 @@ public class ReadMaps : MonoBehaviour
 
 
 
-    void RespBox(char charN, int intx, int inty)
+    void RespBox(char charN, int intx, int intZ)
     {
 
         GameObject[] Tipes = new GameObject[4];
@@ -102,15 +121,16 @@ public class ReadMaps : MonoBehaviour
 
 
 
-        
-        if (elem > 0)
+
+        if (elem >= 0)
         {
 
-            Vector3 NewPos = new Vector3(2 * intx * Scale_tmp, 0.001f, 2 * intx * Scale_tmp);
+            Vector3 NewPos = new Vector3((3 + intx) * 3, 0.001f+10 * Level, (3 + intZ) * 3);
 
             Instantiate(Tipes[elem], NewPos, Quaternion.identity);
 
         }
+        else Debug.Log(charN);
 
 
 
