@@ -896,7 +896,9 @@ MonoBehaviour:
   Box: {fileID: 1561428666}
   Player: {fileID: 429996155}
   Target: {fileID: 1228850257}
-  Scale_tmp: 1
+  Shift: 6
+  Level2_limit: 0
+  Level3_limit: 0
 --- !u!4 &1716857900
 Transform:
   m_ObjectHideFlags: 0

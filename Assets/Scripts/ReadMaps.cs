@@ -23,8 +23,13 @@ public class ReadMaps : MonoBehaviour
     int Level2;
     int Level3;
 
-    [SerializeField][Range(0 , 10)] int Level2_limit=1;
-    [SerializeField][Range(0 , 6)] int Level3_limit=1;
+
+    [SerializeField] int Shift = 6;
+
+
+
+    [SerializeField][Range(0, 6)] int Level2_limit = 6;
+    [SerializeField][Range(0, 6)] int Level3_limit = 10;
 
 
 
@@ -34,12 +39,13 @@ public class ReadMaps : MonoBehaviour
     {
 
 
-        for (Level2 = 0; Level2 < Level2_limit; Level2++)
-            for (Level3 = 0; Level3 < Level3_limit; Level3++)
+        for (Level2 = 0; Level2 <= Level2_limit; Level2++)
+            for (Level3 = 0; Level3 <= Level3_limit; Level3++)
             {
 
                 Level = Level2 * Level3;
-                LevelMake(Level);
+                if (Level <61)
+                LevelMake(Level+ Shift);
 
         }
     }
@@ -119,7 +125,7 @@ public class ReadMaps : MonoBehaviour
                 elem = 2;
                 break;
             case ' ':
-                elem = -1;
+                elem = -2;
                 break;
             case '*':
                 elem = 1;
@@ -140,7 +146,8 @@ public class ReadMaps : MonoBehaviour
             Instantiate(Tipes[elem], NewPos, Quaternion.identity);
 
         }
-        else Debug.Log(charN);
+        else if(elem!=-2) Debug.Log(charN);
+
 
 
 
