@@ -18,8 +18,14 @@ public class ReadMaps : MonoBehaviour
     [SerializeField] GameObject Player;
     [SerializeField] GameObject Target;
     // GameObject Button;
-    [SerializeField] int Scale_tmp = 1;
+   // [SerializeField] int Scale_tmp = 1;
     int Level;
+    int Level2;
+    int Level3;
+
+    [SerializeField][Range(0 , 10)] int Level2_limit=1;
+    [SerializeField][Range(0 , 6)] int Level3_limit=1;
+
 
 
 
@@ -28,11 +34,12 @@ public class ReadMaps : MonoBehaviour
     {
 
 
-        for (Level = 0; Level < 10; Level++)
-        {
+        for (Level2 = 0; Level2 < Level2_limit; Level2++)
+            for (Level3 = 0; Level3 < Level3_limit; Level3++)
+            {
 
-            
-            LevelMake(Level);
+                Level = Level2 * Level3;
+                LevelMake(Level);
 
         }
     }
@@ -108,6 +115,9 @@ public class ReadMaps : MonoBehaviour
             case '.':
                 elem = 3;
                 break;
+            case '@':
+                elem = 2;
+                break;
             case ' ':
                 elem = -1;
                 break;
@@ -125,7 +135,7 @@ public class ReadMaps : MonoBehaviour
         if (elem >= 0)
         {
 
-            Vector3 NewPos = new Vector3((3 + intx) * 3, 0.001f+10 * Level, (3 + intZ) * 3);
+            Vector3 NewPos = new Vector3((3 + intx) * 3+Level2*100, 0.001f+12 * Level, (3 + intZ) * 3);
 
             Instantiate(Tipes[elem], NewPos, Quaternion.identity);
 
