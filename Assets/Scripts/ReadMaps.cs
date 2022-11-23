@@ -12,12 +12,12 @@ public class ReadMaps : MonoBehaviour
 
     [SerializeField] TextAsset MapsAll;
 
-    GameObject Wall;
-    GameObject Box;
-    GameObject Player;
-    GameObject Target;
+    [SerializeField] GameObject Wall;
+    [SerializeField] GameObject Box;
+    [SerializeField] GameObject Player;
+     GameObject Target;
     // GameObject Button;
-
+    [SerializeField] int Scale_tmp = 1;
 
 
 
@@ -50,9 +50,10 @@ public class ReadMaps : MonoBehaviour
 
             {
                 Debug.Log(characters[j]);
-                RespBox(characters[j], axisX, axisY);
+                char ch=characters[j];
+                RespBox(ch,axisX, axisY);
                 axisX++;
-                
+
 
 
             }
@@ -66,7 +67,7 @@ public class ReadMaps : MonoBehaviour
 
 
 
-    RespBox(char charN,int intx, int inty)
+    void RespBox(char charN, int intx, int inty)
     {
 
         GameObject[] Tipes = new GameObject[4];
@@ -76,24 +77,44 @@ public class ReadMaps : MonoBehaviour
         Tipes[2] = Player;
         Tipes[3] = Target;
 
-        
+
 
         int elem = 1;
 
         switch (charN)
         {
-            case "X":
+            case 'X':
                 elem = 0;
-            case ".":
+                break;
+            case '.':
                 elem = 3;
-            case " ":
+                break;
+            case ' ':
                 elem = -1;
-            case "*":
+                break;
+            case '*':
                 elem = 1;
+                break;
             default:
                 elem = -1;
-            break;
+                break;
         }
+
+
+
+        
+        if (elem > 0)
+        {
+
+            Vector3 NewPos = new Vector3(2 * intx * Scale_tmp, 0.001f, 2 * intx * Scale_tmp);
+
+            Instantiate(Tipes[elem], NewPos, Quaternion.identity);
+
+        }
+
+
+
+
     }
 
 
