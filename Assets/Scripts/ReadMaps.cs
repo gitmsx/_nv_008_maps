@@ -1,16 +1,35 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class ReadMaps : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    [SerializeField] TextAsset MapsAll;
+
+    
     void Start()
     {
-        string text = System.IO.File.ReadAllText(@"C:\Users\Public\TestFolder\WriteText.txt");
+        int Level = 1;
+      bool ReadFileBool = ReadData(Level);
     }
 
-    // Update is called once per frame
+
+    bool ReadData(int Level)
+    {
+//        string path = "Assets/file.txt";
+        var linesTxt = MapsAll.text;
+ 
+
+        foreach(var  str in linesTxt )
+            Debug.Log(str);
+
+        return false;
+    }
+
+
     void Update()
     {
         
